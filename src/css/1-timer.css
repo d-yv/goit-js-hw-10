@@ -1,0 +1,9 @@
+.timer {
+    display: flex;
+    gap: 20px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
