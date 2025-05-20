@@ -4,7 +4,9 @@ import 'flatpickr/dist/flatpickr.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+const inputField = document.querySelector('#datetime-picker');
 const button = document.querySelector('button');
+
 button.setAttribute('disabled', '');
 let userSelectedDate = 0;
 
@@ -20,14 +22,13 @@ const options = {
     if (dateVerify > dateNow) {
       userSelectedDate = dateVerify;
       button.removeAttribute('disabled');
-      console.log('userSelectedDate = ', userSelectedDate);
-      console.log('differenceDate = ', convertMs(userSelectedDate - dateNow));
     } else {
+      button.setAttribute('disabled', '');
       iziToast.show({
         title: 'Error',
         titleColor: 'red',
         message: 'Please choose a date in the future',
-        position: 'topCenter',
+        position: 'topRight',
       });
     }
   },
@@ -39,15 +40,28 @@ button.addEventListener('click', timer);
 
 function timer() {
   button.setAttribute('disabled', '');
+  inputField.setAttribute('disabled', '');
   const intervalId = setInterval(() => {
     const now = new Date();
     const difference = userSelectedDate - now;
 
     if (difference <= 0) {
       clearInterval(intervalId);
+      inputField.removeAttribute('disabled');
     } else {
       const time = convertMs(difference);
-      console.log(time); //{days: 1, hours: 23, minutes: 59, seconds: 23}
+      document.querySelector('[data-days]').textContent = String(
+        time.days
+      ).padStart(2, '0');
+      document.querySelector('[data-hours]').textContent = String(
+        time.hours
+      ).padStart(2, '0');
+      document.querySelector('[data-minutes]').textContent = String(
+        time.minutes
+      ).padStart(2, '0');
+      document.querySelector('[data-seconds]').textContent = String(
+        time.seconds
+      ).padStart(2, '0');
     }
   }, 1000);
 }
