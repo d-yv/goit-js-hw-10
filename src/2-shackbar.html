@@ -8,19 +8,31 @@
   </head>
   <body>
     <form class="form">
-      <label>
+      <label class="delay-block">
         Delay (ms)
-        <input type="number" name="delay" required />
+        <input class="delay-input" type="number" name="delay" required />
       </label>
 
-      <fieldset>
+      <fieldset class="radio-input">
         <legend>State</legend>
         <label>
-          <input type="radio" name="state" value="fulfilled" required />
+          <input
+            class="radio-knop"
+            type="radio"
+            name="state"
+            value="fulfilled"
+            required
+          />
           Fulfilled
         </label>
         <label>
-          <input type="radio" name="state" value="rejected" required />
+          <input
+            class="radio-knop"
+            type="radio"
+            name="state"
+            value="rejected"
+            required
+          />
           Rejected
         </label>
       </fieldset>
