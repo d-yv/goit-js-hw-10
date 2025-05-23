@@ -6,10 +6,11 @@ const submitData = {};
 const createSubmitData = e => {
   e.preventDefault();
   const form = e.target.elements;
-  const delay = form.delay.value.trim();
+  const delay = form.delay.value;
   const state = form.state.value;
-  submitData.delay = delay;
+  submitData.delay = +delay;
   submitData.state = state;
+
   e.target.reset();
 
   const messageData = {
@@ -20,12 +21,12 @@ const createSubmitData = e => {
     const { state, delay } = submitData;
     setTimeout(() => {
       if (state === 'fulfilled') {
-        resolve('SUCCESS');
+        resolve(delay);
         messageData.title = 'Succsess';
         messageData.titleColor = 'green';
         messageData.message = `✅ Fulfilled promise in ${delay}ms`;
       } else {
-        reject('ERROR');
+        reject(delay);
         messageData.title = 'Error';
         messageData.titleColor = 'red';
         messageData.message = `❌ Rejected promise in ${delay}ms`;
@@ -40,7 +41,5 @@ const createSubmitData = e => {
     .catch(error => {
       iziToast.show(messageData);
     });
-
-  return console.log(snackbar);
 };
 form.addEventListener('submit', createSubmitData);
